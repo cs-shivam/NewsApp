@@ -15,7 +15,7 @@ Future<void> main() async {
   Hive.registerAdapter(SourceAdapter());
   final Box<dynamic> art = await Hive.openBox("newsArticles");
 
-  runApp(NewsApp(articles :art));
+  runApp(NewsApp(articles : art));
 }
 
 class NewsApp extends StatelessWidget {
