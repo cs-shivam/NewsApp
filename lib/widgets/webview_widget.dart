@@ -11,12 +11,6 @@ class WebViewContainer extends StatefulWidget {
   @override
   createState() => _WebViewContainerState(this.url);
 }
-// class Body extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//   }
-// }
 class _WebViewContainerState extends State<WebViewContainer> {
   var _url;
   final _key = UniqueKey();
@@ -66,6 +60,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
           _isLoadingPage
               ? Container(
                   alignment: FractionalOffset.center,
+                  //child: CircularProgressIndicator(),
                   child: LinearProgressIndicator(backgroundColor: Colors.lightBlue),
                 )
               : Container(
