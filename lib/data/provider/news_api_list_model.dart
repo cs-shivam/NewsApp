@@ -14,7 +14,7 @@ class NewsListModel extends ChangeNotifier{
   //?constructor is used to upadte the news article list when restarting the application.Getting the data into list form hive box.
   NewsListModel(Box<dynamic> articles){
    _articles = articles;
-    // print(_articles);
+    // print(_articles); 
     var boxdata = _articles.get(_key , defaultValue: []);
     //print(boxdata);
     List<Article> tempList =  boxdata.cast<Article>();

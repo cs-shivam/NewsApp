@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:news_app/widgets/webview_controller_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -17,18 +20,26 @@ class WebViewContainer extends StatefulWidget {
 class _WebViewContainerState extends State<WebViewContainer> {
   var _url;
   final _key = UniqueKey();
+  bool _isLoadingPage;
+  Completer<WebViewController> _controller = Completer<WebViewController>();
   _WebViewContainerState(this._url);
-  num position = 1 ;
- doneLoading() {
-    setState(() {
-      position = 0;
-    });
+ // num position = 1 ;
+  @override
+  void initState() {
+    super.initState();
+    _isLoadingPage = true;
   }
-  startLoading(){
-    setState(() {
-      position = 1;
-    });
-  }
+
+//  doneLoading() {
+//     setState(() {
+//       position = 0;
+//     });
+//   }
+//   startLoading(){
+//     setState(() {
+//       position = 1;
+//     });
+//   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,19 +57,39 @@ class _WebViewContainerState extends State<WebViewContainer> {
             ),
           ],
         ),
+        actions: <Widget>[
+          WebviewControls(_controller.future),
+        ],
       ),
       body: Column(
         children: [
-          LinearProgressIndicator(backgroundColor: Colors.lightBlue),
+          _isLoadingPage
+              ? Container(
+                  alignment: FractionalOffset.center,
+                  child: LinearProgressIndicator(backgroundColor: Colors.lightBlue),
+                )
+              : Container(
+                  color: Colors.transparent,
+                ),
+
           Expanded(
             child: WebView(
               key: _key,
               javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: _url,    
+              initialUrl: _url, 
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },   
+              onPageFinished: (finish) {
+              setState(() {
+                _isLoadingPage = false;
+              });
+            },
               
             )),
         ],
-      )
+      ),
+    //  floatingActionButton: WebviewControls(_controller.future),
     );
   }
 }
