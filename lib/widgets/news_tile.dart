@@ -5,6 +5,8 @@ import 'package:news_app/data/provider/news_api_list_model.dart';
 import 'package:news_app/widgets/webview_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
+
 class NewsTile extends StatelessWidget {
   final Article article;
   NewsTile({@required this.article}); 
@@ -17,7 +19,16 @@ class NewsTile extends StatelessWidget {
       shadowColor: Colors.blueGrey,
       color : Colors.white70,
       child: InkWell(
-        onTap: () => _handleURLButtonPress(context,article.url),
+        
+        onTap: ()  {
+          _handleURLButtonPress(context,article.url);
+         // logger.v("Verbose log");
+         // logger.d("Debug log");
+          logger.i("Info log");
+         // logger.w("Warning log");
+         // logger.e("Error log");
+         // logger.wtf("What a terrible failure log");
+        },
         child : Container(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 16),
@@ -71,6 +82,7 @@ class NewsTile extends StatelessWidget {
                             color : article.isAdded ? Colors.red : null,
                           ),
                           onPressed: () { 
+                            logger.i('Info Log');
                             Provider.of<NewsListModel>(context , listen : false).toggleNews(article);
                           },
                         ),

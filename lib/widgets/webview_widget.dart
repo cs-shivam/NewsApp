@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/widgets/webview_controller_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../main.dart';
+
 class WebViewContainer extends StatefulWidget {
   final url;
   WebViewContainer(this.url);
@@ -17,25 +19,16 @@ class _WebViewContainerState extends State<WebViewContainer> {
   bool _isLoadingPage;
   Completer<WebViewController> _controller = Completer<WebViewController>();
   _WebViewContainerState(this._url);
- // num position = 1 ;
+
   @override
   void initState() {
     super.initState();
     _isLoadingPage = true;
   }
 
-//  doneLoading() {
-//     setState(() {
-//       position = 0;
-//     });
-//   }
-//   startLoading(){
-//     setState(() {
-//       position = 1;
-//     });
-//   }
   @override
   Widget build(BuildContext context) {
+    logger.i('Info Log');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black26,
@@ -84,7 +77,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
             )),
         ],
       ),
-    //  floatingActionButton: WebviewControls(_controller.future),
     );
   }
 }

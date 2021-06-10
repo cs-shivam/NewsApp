@@ -4,11 +4,12 @@ import 'package:news_app/screens/bookmark/bookmark_screen.dart';
 import 'package:news_app/screens/news/news_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
-
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> _pages;
   PageController _pc;
@@ -31,12 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
-  // final tabList = [
-  //   News(),
-  //   Bookmark(),
-  // ];
   @override
   Widget build(BuildContext context) {
+    logger.v('Verbose Log');
     var tabSwitchProvider = Provider.of<TabSwitchModel>(context);
     return Scaffold(
       appBar: AppBar(
@@ -66,12 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
       PageView(
         controller: _pc,
         physics: NeverScrollableScrollPhysics(),
-        children: _pages,
-      //  
+        children: _pages,  
       ),
-      // Center(
-      //   child : tabList.elementAt(tabSwitchProvider.currentTabIndex), 
-      // ),
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white30,
         elevation: 20.0,
@@ -91,13 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label : 'Bookmarks'
           ),
         ],
+        
         onTap : (index){
-          // setState(() {
-          //   _currentPage = index;
-          //   _pc.jumpToPage(index);
-          // });
-         tabSwitchProvider.currentTabIndex = index;
-         _pc.jumpToPage(index);
+          logger.i('Info Log');
+          tabSwitchProvider.currentTabIndex = index;
+          _pc.jumpToPage(index);
         }
       ),
     );
